@@ -9,22 +9,21 @@ class ProductTag extends Model {
 ProductTag.init(
   {
     // define columns
-    id: { // *******************
+    id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
-    product_id: { // *******************
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
+    product_id: {
+      type: DataTypes.INTEGER,
+      validate: { // ************ reference product model's id
         len: [1],
       },
     },
-    tag_id: { // *******************
+    tag_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
+      validate: {  // ************** reference tag model's id
         len: [1],
       },
     },
