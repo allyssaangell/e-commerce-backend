@@ -19,17 +19,16 @@ router.get("/:id", (req, res) => {
   // be sure to include its associated Products
   Category.findOne({
     where: {
-      attributes: { exclude: ["password"] }, // ?????????????????
       id: req.params.id,
     },
     include: [
       {
         model: Product,
         attributes: ["id", "product_name", "price", "stock"],
-        include: {
-          model: ProductTag,
-          attributes: ["title"], // ???????????????????????
-        },
+        // include: {
+        //   model: ProductTag,
+        //   attributes: ["title"], // ???????????????????????
+        // },
       },
     ],
   })
