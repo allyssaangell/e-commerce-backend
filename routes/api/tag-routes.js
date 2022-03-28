@@ -7,7 +7,13 @@ router.get("/", (req, res) => {
   // find all tags
   // be sure to include its associated Product data
   Tag.findAll({
-    attributes: { exclude: ["password"] }, // ????????????????????
+    include: [
+      {
+        model: Product,
+        through: ProductTag,
+        attributes: ["id", "product_name", "price", "stock"],
+      },
+    ],
   })
     .then((dbTagData) => res.json(dbTagData))
     .catch((err) => {
@@ -26,7 +32,8 @@ router.get("/:id", (req, res) => {
     include: [
       {
         model: Product,
-        attributes: ["id", "product_name"], // ????????????????????????
+        through: ProductTag,
+        attributes: ["id", "product_name", "price", "stock"],
       },
     ],
   })
@@ -46,9 +53,7 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
   // create a new tag
   Tag.create({
-    username: req.body.username, // ?????????????
-    email: req.body.email,
-    password: req.body.password,
+    tag_name: req.body.tag_name,
   })
     .then((dbTagData) => res.json(dbTagData))
     .catch((err) => {
