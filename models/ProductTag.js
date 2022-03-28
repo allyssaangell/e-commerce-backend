@@ -2,9 +2,7 @@ const { Model, DataTypes } = require("sequelize");
 
 const sequelize = require("../config/connection");
 
-class ProductTag extends Model {
-  // ???????????????????????????
-}
+class ProductTag extends Model {}
 
 ProductTag.init(
   {
@@ -17,14 +15,18 @@ ProductTag.init(
     },
     product_id: {
       type: DataTypes.INTEGER,
-      validate: { // ************ reference product model's id
-        len: [1],
+      references: {
+        model: "product",
+        key: "id",
+        unique: false,
       },
     },
     tag_id: {
       type: DataTypes.INTEGER,
-      validate: {  // ************** reference tag model's id
-        len: [1],
+      references: {
+        model: "tag",
+        key: "id",
+        unique: false,
       },
     },
   },
